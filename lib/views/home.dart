@@ -59,9 +59,9 @@ class _HomeState extends State<Home> {
           Feed(
             width: width,
           ),
-          Explore(),
-          NewPost(),
-          Profile()
+          const Explore(),
+          const NewPost(),
+          const Profile()
         ],
       ),
     );

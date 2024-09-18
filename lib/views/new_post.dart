@@ -44,14 +44,10 @@ class _NewPostState extends State<NewPost> {
                       children: [
                         const Text('Image not selected'),
                         ElevatedButton(
-                            onPressed: () async {
-                              XFile? file = await  _imagePicker.pickImage(
-                                  source: ImageSource.gallery);
-                              setState(() {
-                                image = file;
-                              });
+                            onPressed: () {
+                              pickImageDialog(height);
                             },
-                            child: const Text('Select Image'))
+                            child: const Text('Pick an Image'))
                       ],
                     )
                   : Stack(children: [
@@ -89,5 +85,51 @@ class _NewPostState extends State<NewPost> {
                 style: TextStyle(fontSize: 20),
               ))
         ]));
+  }
+
+  pickImageDialog(double height) {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+            actions: [
+              TextButton(
+                onPressed: () {},
+                child: const Text('Cancel'),
+              )
+            ],
+            title: const Text('Pick Image'),
+            content: SizedBox(
+              height: height * 0.15,
+              child: Column(
+                children: [
+                  ElevatedButton(
+                      onPressed: () async {
+                        XFile? file = await _imagePicker.pickImage(
+                            source: ImageSource.gallery);
+                        setState(() {
+                          image = file;
+                        });
+                        Navigator.pop(context);
+                      },
+                      child: const Text('Pick Image from Gallery')),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  ElevatedButton(
+                      onPressed: () async {
+                        XFile? file = await _imagePicker.pickImage(
+                            source: ImageSource.camera);
+                        setState(() {
+                          image = file;
+                        });
+                        Navigator.pop(context);
+                      },
+                      child: const Text('Pick Image from Camera'))
+                ],
+              ),
+            ));
+      },
+    );
   }
 }
