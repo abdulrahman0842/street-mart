@@ -13,7 +13,7 @@ class CategoriesHeader extends StatelessWidget {
       children: [
         Text('Categories',
             style: TextStyle(
-              fontSize: 25,
+              fontSize: 22,
               fontWeight: FontWeight.bold,
             )),
         SizedBox(
@@ -26,8 +26,7 @@ class CategoriesHeader extends StatelessWidget {
               icon: Icons.dinner_dining,
               category: 'Food',
             ),
-            CategoryTypeIcon(
-                icon: Icons.shopping_cart, category: "Fashion"),
+            CategoryTypeIcon(icon: Icons.shopping_cart, category: "Fashion"),
             CategoryTypeIcon(
                 icon: Icons.laptop_chromebook, category: "Electronicss"),
             CategoryTypeIcon(

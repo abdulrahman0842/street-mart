@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:street_mart/widgets/product_grid_view.dart';
 
-import '../widgets/time_line_list.dart';
-
 class Profile extends StatefulWidget {
   const Profile({super.key});
 
@@ -11,13 +9,11 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
-  bool showTimeline = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Profile'),
-        
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -38,35 +34,11 @@ class _ProfileState extends State<Profile> {
                 style: TextStyle(
                   fontSize: 16,
                 )),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                IconButton(
-                    onPressed: () {
-                      setState(() {
-                        showTimeline = false;
-                      });
-                    },
-                    icon: const Icon(
-                      Icons.grid_on,
-                      size: 30,
-                    )),
-                const SizedBox(
-                  width: 10,
-                ),
-                IconButton(
-                    onPressed: () {
-                      setState(() {
-                        showTimeline = true;
-                      });
-                    },
-                    icon: const Icon(
-                      Icons.timeline_outlined,
-                      size: 30,
-                    ))
-              ],
+            const Divider(
+              height: 10,
+              thickness: 1.5,
             ),
-            showTimeline ? const TimeLineList() : const ProductGridView()
+            const ProductGridView()
           ],
         ),
       ),

@@ -1,4 +1,6 @@
-// import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:street_mart/widgets/categories_header.dart';
 // import 'package:geolocator/geolocator.dart';
 
 // class Testi extends StatefulWidget {
@@ -73,3 +75,21 @@
 //     );
 //   }
 // }
+
+class Testi extends StatefulWidget {
+  const Testi({super.key});
+
+  @override
+  State<Testi> createState() => _TestiState();
+}
+
+class _TestiState extends State<Testi> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.green,
+      ),
+    );
+  }
+}

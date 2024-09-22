@@ -12,13 +12,13 @@ class CategoryTypeIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(children: [
       Container(
-        height: 65,
-        width: 65,
+        height: 60,
+        width: 60,
         decoration: BoxDecoration(
             color: Colors.grey, borderRadius: BorderRadius.circular(20)),
         child: Icon(
           icon,
-          size: 45,
+          size: 40,
         ),
       ),
       const SizedBox(
@@ -26,7 +26,7 @@ class CategoryTypeIcon extends StatelessWidget {
       ),
       Text(
         category,
-        style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+        style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
       )
     ]);
   }
