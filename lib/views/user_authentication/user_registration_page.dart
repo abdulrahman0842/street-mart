@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:street_mart/models/user_account_model.dart';
 import 'package:street_mart/services/user_account.dart';
-import 'package:street_mart/views/user_authentication/login.dart';
+import 'package:street_mart/views/user_authentication/user_login_page.dart';
 import 'package:street_mart/views/user_authentication/widgets/user_credential_input_field.dart';
 
 class UserRegistrationPage extends StatefulWidget {
@@ -78,22 +78,14 @@ class _UserRegistrationPageState extends State<UserRegistrationPage> {
             ),
             Padding(
               padding: const EdgeInsets.only(left: 8.0, right: 8),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  TextButton(
-                      onPressed: () {}, child: const Text('Forget Password')),
-                  TextButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    const UserAuthenticationPage()));
-                      },
-                      child: const Text('Login Here'))
-                ],
-              ),
+              child: TextButton(
+                  onPressed: () {
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const UserLoginPage()));
+                  },
+                  child: const Text('Login Here')),
             ),
             const SizedBox(
               height: 15,

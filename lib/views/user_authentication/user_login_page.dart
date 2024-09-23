@@ -1,21 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:street_mart/models/user_account_model.dart';
+import 'package:street_mart/services/user_account.dart';
 import 'package:street_mart/views/initilal_screen.dart';
+import 'package:street_mart/views/user_authentication/user_registration_page.dart';
 import 'package:street_mart/views/user_authentication/widgets/user_credential_input_field.dart';
 
-class UserAuthenticationPage extends StatefulWidget {
-  const UserAuthenticationPage({super.key});
+class UserLoginPage extends StatefulWidget {
+  const UserLoginPage({super.key});
 
   @override
-  State<UserAuthenticationPage> createState() => _UserAuthenticationPageState();
+  State<UserLoginPage> createState() => _UserLoginPageState();
 }
 
-class _UserAuthenticationPageState extends State<UserAuthenticationPage> {
+class _UserLoginPageState extends State<UserLoginPage> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _emailContoller = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   moveToHome(context) {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => const InitilalScreen()));
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => const InitilalScreen()));
     // String email = SharedPreferencesHelper.getValue('emailID') ?? 'Not found';
     // String password =
     //     SharedPreferencesHelper.getValue('password') ?? 'Not found';
@@ -110,9 +113,30 @@ class _UserAuthenticationPageState extends State<UserAuthenticationPage> {
                           width: 150,
                           child: ElevatedButton(
                             onPressed: () {
+                              LoginUserModel userData = LoginUserModel(
+                                  email: _emailContoller.text,
+                                  password: _passwordController.text);
+                              UserAuthenticationService().loginUser(userData);
                               moveToHome(context);
                             },
                             child: const Text('Login'),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        SizedBox(
+                          height: 50,
+                          width: 150,
+                          child: ElevatedButton(
+                            onPressed: () {
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const UserRegistrationPage()));
+                            },
+                            child: const Text('Register Here...'),
                           ),
                         )
                       ],

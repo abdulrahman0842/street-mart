@@ -63,21 +63,9 @@ class NewPostInputDataWidget extends StatelessWidget {
         const SizedBox(
           height: 5,
         ),
-        Row(
-          children: [
-            Flexible(
-              child: NewPostTextField(
-                controller: addressController,
-                hintText: 'Address',
-              ),
-            ),
-            SizedBox(
-                width: width * 0.20,
-                child: IconButton(
-                    iconSize: 30,
-                    onPressed: () {},
-                    icon: const Icon(Icons.my_location)))
-          ],
+        NewPostTextField(
+          controller: addressController,
+          hintText: 'Address',
         ),
       ],
     );

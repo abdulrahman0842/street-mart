@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:street_mart/views/user_authentication/user_registration_page.dart';
+import 'package:street_mart/views/initilal_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,6 +15,6 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
             colorScheme: ColorScheme.fromSeed(
                 seedColor: const Color.fromARGB(255, 0, 140, 255))),
-        home: const UserRegistrationPage());
+        home: const InitilalScreen());
   }
 }

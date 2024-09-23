@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:street_mart/models/new_product_model.dart';
+import 'package:street_mart/services/share_new_product.dart';
 import 'dart:io';
-
-import 'package:street_mart/widgets/new_post_input_data_widget.dart';
+import 'package:street_mart/widgets/new_post_text_field.dart';
 
 class NewPost extends StatefulWidget {
   const NewPost({super.key});
@@ -15,6 +16,10 @@ class _NewPostState extends State<NewPost> {
   final ImagePicker _imagePicker = ImagePicker();
   XFile? image;
 
+  final TextEditingController productNameController = TextEditingController();
+  final TextEditingController productCategoryController =
+      TextEditingController();
+  final TextEditingController addressController = TextEditingController();
   void deleteImage() {
     File(image!.path).delete();
   }
@@ -70,12 +75,76 @@ class _NewPostState extends State<NewPost> {
                                     Color.fromRGBO(81, 81, 83, 0.705))),
                           )),
                     ])),
-          NewPostInputDataWidget(width: width),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(
+                height: 5,
+              ),
+              const Text(
+                'Product Name',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              NewPostTextField(
+                controller: productNameController,
+                hintText: 'Product Name',
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              const Text(
+                'Category',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+              ),
+              DropdownMenu(
+                  controller: productCategoryController,
+                  hintText: 'Category',
+                  inputDecorationTheme: InputDecorationTheme(
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(15))),
+                  dropdownMenuEntries: const [
+                    DropdownMenuEntry(
+                      value: 'Food',
+                      label: 'Food',
+                    ),
+                    DropdownMenuEntry(value: 'Fashion', label: 'Fasion'),
+                    DropdownMenuEntry(
+                        value: 'Electronics', label: 'Electronics'),
+                    DropdownMenuEntry(value: 'Groceries', label: 'Groceries')
+                  ]),
+              const SizedBox(
+                height: 5,
+              ),
+              const Text(
+                'Address',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              NewPostTextField(
+                controller: addressController,
+                hintText: 'Address',
+              ),
+            ],
+          ),
           const SizedBox(
             height: 10,
           ),
           ElevatedButton.icon(
-              onPressed: () {},
+              onPressed: () {
+                NewProductModel newProduct = NewProductModel(
+                    productName: productNameController.text,
+                    productCategory: productCategoryController.text,
+                    locationCoordinates: addressController.text);
+                ShareNewProductService().shareNewProduct(newProduct, image!);
+                productNameController.clear();
+                productCategoryController.clear();
+                addressController.clear();
+              },
               icon: const Icon(
                 Icons.file_upload_outlined,
                 size: 25,
