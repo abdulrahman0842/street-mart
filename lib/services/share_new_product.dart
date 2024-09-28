@@ -4,14 +4,15 @@ import 'dart:developer';
 import 'package:street_mart/models/new_product_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
+import 'package:street_mart/services/config.dart';
 
 class ShareNewProductService {
-  String baseURL = 'http://10.0.0.18:3000/product/add';
+  String baseUrl = Config().baseUrl;
 
   String token =
       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2ZWJiZmNmN2JlZDhkZDcwYzdiNGUzNSIsImlhdCI6MTcyNzA3NDMyNH0.RfqEVym5khJ_hc4Nh1NM5K4FGeKzutP12Aj6hR8bmaM";
   Future<void> shareNewProduct(NewProductModel product, XFile image) async {
-    final url = Uri.parse(baseURL);
+    final url = Uri.parse('$baseUrl/product/add');
     var jsonData = product.toJson();
     log(jsonData.toString());
     try {

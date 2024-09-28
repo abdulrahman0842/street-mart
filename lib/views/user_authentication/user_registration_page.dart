@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:street_mart/models/user_account_model.dart';
-import 'package:street_mart/services/user_account.dart';
+import 'package:street_mart/services/user_authentications.dart';
 import 'package:street_mart/views/user_authentication/user_login_page.dart';
 import 'package:street_mart/views/user_authentication/widgets/user_credential_input_field.dart';
 

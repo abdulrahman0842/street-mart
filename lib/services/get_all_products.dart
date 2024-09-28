@@ -2,9 +2,10 @@ import 'dart:convert';
 import 'dart:developer';
 import 'package:http/http.dart' as http;
 import 'package:street_mart/models/product_model.dart';
+import 'package:street_mart/services/config.dart';
 
 class GetProductsServices {
-  final String baseUrl = '';
+  final String baseUrl = Config().baseUrl;
   List<Products>? allProducts;
   List<Products>? productsByCategory;
 
@@ -24,8 +25,10 @@ class GetProductsServices {
     }
   }
 
+
+  // Fetch all Products from the Database
   Future<void> getAllProducts() async {
-    final products = await _fetchProducts(baseUrl);
+    final products = await _fetchProducts('$baseUrl/products');
     if (products != null && products.isNotEmpty) {
       allProducts = products;
     } else {
@@ -33,8 +36,10 @@ class GetProductsServices {
     }
   }
 
+
+  // Fetch Products by Category from the Database
   Future<void> getProductByCategory(String category) async {
-    final url = '$baseUrl/products/get-product-by-name/$category';
+    final url = '$baseUrl/product/get-product-by-category/$category';
     final products = await _fetchProducts(url);
     if (products != null && products.isNotEmpty) {
       productsByCategory = products;

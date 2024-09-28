@@ -3,13 +3,13 @@ import 'dart:developer';
 
 import 'package:street_mart/models/user_account_model.dart';
 import 'package:http/http.dart' as http;
+import 'package:street_mart/services/config.dart';
 
 class UserAuthenticationService {
-  String baseURL = 'http://10.0.0.18:3000/';
+  String baseURL = Config().baseUrl;
   String token = '';
   Future<void> registerUser(RegisterUserModel userData) async {
-    String registerEndPoint = baseURL + 'user/register';
-    final url = Uri.parse(registerEndPoint);
+    final url = Uri.parse('$baseURL/user/register');
     final jsonData = jsonEncode(userData.toJson());
 
     try {
@@ -27,9 +27,8 @@ class UserAuthenticationService {
   }
 
   Future<void> loginUser(LoginUserModel userData) async {
-    String loginEndPoint = baseURL + 'user/login';
-
-    final url = Uri.parse(loginEndPoint);
+  
+    final url = Uri.parse('$baseURL/user/login');
     final jsonData = jsonEncode(userData.toJson());
 
     try {
