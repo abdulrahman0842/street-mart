@@ -23,14 +23,13 @@ class CategoriesHeader extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             CategoryTypeIcon(
-              icon: Icons.dinner_dining,
-              category: 'Food',
+              icon: Icons.school,
+              category: 'Stationary',
             ),
             CategoryTypeIcon(icon: Icons.shopping_cart, category: "Fashion"),
             CategoryTypeIcon(
                 icon: Icons.laptop_chromebook, category: "Electronicss"),
-            CategoryTypeIcon(
-                icon: Icons.grid_view_rounded, category: "Groceries")
+            CategoryTypeIcon(icon: Icons.plumbing_rounded, category: "Hardware")
           ],
         )
       ],

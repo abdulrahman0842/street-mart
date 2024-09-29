@@ -15,22 +15,25 @@ class ProductPostCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Row(children: [
-            CircleAvatar(
-              radius: 25,
+          Row(children: [
+            const CircleAvatar(
+              radius: 22,
               backgroundColor: Colors.grey,
             ),
-            SizedBox(
+            const SizedBox(
               width: 5,
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
+                const Text(
                   'abdulrahman0842',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                 ),
-                Text('Noor Pharma, Mushawerat Chowk')
+                Text(
+                  '25/09/2024',
+                  style: TextStyle(color: Colors.grey.shade600),
+                )
               ],
             )
           ]),
@@ -43,18 +46,6 @@ class ProductPostCard extends StatelessWidget {
             decoration: BoxDecoration(
                 color: Colors.grey.shade400,
                 borderRadius: BorderRadius.circular(15)),
-            child: Stack(children: [
-              Positioned(
-                  bottom: 10,
-                  right: 10,
-                  child: ElevatedButton(
-                    style: const ButtonStyle(
-                        shape: MaterialStatePropertyAll(
-                            StadiumBorder(side: BorderSide(width: 1)))),
-                    onPressed: () {},
-                    child: const Icon(Icons.location_on_outlined),
-                  )),
-            ]),
           ),
           const SizedBox(
             height: 5,
@@ -69,21 +60,13 @@ class ProductPostCard extends StatelessWidget {
           const SizedBox(
             height: 5,
           ),
-          const Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Icon(Icons.location_on_outlined),
-              Flexible(
-                child: Text(
-                  'Noi siamo furon transitorie con segreto forza e. E e sono manifesta.',
-                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
-                  softWrap: true,
-                  maxLines: 4,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ),
-            ],
-          )
+          const Text(
+            'Noi siamo furon transitorie con segreto forza e. E e sono manifesta.',
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+            softWrap: true,
+            maxLines: 4,
+            overflow: TextOverflow.ellipsis,
+          ),
         ],
       ),
     );

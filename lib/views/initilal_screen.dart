@@ -3,14 +3,14 @@ import 'package:street_mart/views/home.dart';
 import 'package:street_mart/views/new_post.dart';
 import 'package:street_mart/views/profile.dart';
 
-class InitilalScreen extends StatefulWidget {
-  const InitilalScreen({super.key});
+class InitialScreen extends StatefulWidget {
+  const InitialScreen({super.key});
 
   @override
-  State<InitilalScreen> createState() => _InitilalScreenState();
+  State<InitialScreen> createState() => _InitialScreenState();
 }
 
-class _InitilalScreenState extends State<InitilalScreen> {
+class _InitialScreenState extends State<InitialScreen> {
   int selectedIndex = 0;
   PageController pageController = PageController();
   void onTapped(int index) {
@@ -28,8 +28,6 @@ class _InitilalScreenState extends State<InitilalScreen> {
 
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.sizeOf(context).height;
-    double width = MediaQuery.sizeOf(context).width;
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
         items: const [
@@ -45,20 +43,13 @@ class _InitilalScreenState extends State<InitilalScreen> {
         currentIndex: selectedIndex,
         onTap: onTapped,
         elevation: 15,
-        selectedItemColor: Colors.blue,
         showUnselectedLabels: false,
         unselectedItemColor: Colors.grey,
       ),
       body: PageView(
         controller: pageController,
         onPageChanged: onPageChanged,
-        children: [
-          Home(
-            width: width,
-          ),
-          const NewPost(),
-          const Profile()
-        ],
+        children: const [Home(), NewPost(), Profile()],
       ),
     );
   }

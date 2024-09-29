@@ -70,8 +70,8 @@ class _NewPostState extends State<NewPost> {
                               color: Colors.white,
                             ),
                             style: const ButtonStyle(
-                                iconSize: MaterialStatePropertyAll(25),
-                                backgroundColor: MaterialStatePropertyAll(
+                                iconSize: WidgetStatePropertyAll(25),
+                                backgroundColor: WidgetStatePropertyAll(
                                     Color.fromRGBO(81, 81, 83, 0.705))),
                           )),
                     ])),
@@ -107,19 +107,19 @@ class _NewPostState extends State<NewPost> {
                           borderRadius: BorderRadius.circular(15))),
                   dropdownMenuEntries: const [
                     DropdownMenuEntry(
-                      value: 'Food',
-                      label: 'Food',
+                      value: 'Stationary',
+                      label: 'Stationary',
                     ),
-                    DropdownMenuEntry(value: 'Fashion', label: 'Fasion'),
+                    DropdownMenuEntry(value: 'Fashion', label: 'Fashion'),
                     DropdownMenuEntry(
                         value: 'Electronics', label: 'Electronics'),
-                    DropdownMenuEntry(value: 'Groceries', label: 'Groceries')
+                    DropdownMenuEntry(value: 'Hardware', label: 'Hardware')
                   ]),
               const SizedBox(
                 height: 5,
               ),
               const Text(
-                'Address',
+                'Location',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
               ),
               const SizedBox(
@@ -127,7 +127,7 @@ class _NewPostState extends State<NewPost> {
               ),
               NewPostTextField(
                 controller: addressController,
-                hintText: 'Address',
+                hintText: 'Location',
               ),
             ],
           ),
@@ -140,10 +140,13 @@ class _NewPostState extends State<NewPost> {
                     productName: productNameController.text,
                     productCategory: productCategoryController.text,
                     locationCoordinates: addressController.text);
-                ShareNewProductService().shareNewProduct(newProduct, image!);
+                if (image != null) {
+                  ShareNewProductService().shareNewProduct(newProduct, image!);
+                }
                 productNameController.clear();
                 productCategoryController.clear();
                 addressController.clear();
+                image = null;
               },
               icon: const Icon(
                 Icons.file_upload_outlined,

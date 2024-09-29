@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:street_mart/widgets/categories_header.dart';
 // import 'package:geolocator/geolocator.dart';
 
 // class Testi extends StatefulWidget {
@@ -84,12 +82,41 @@ class Testi extends StatefulWidget {
 }
 
 class _TestiState extends State<Testi> {
+  Route createFadeRoute(Widget page) {
+    return PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) => page,
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        return FadeTransition(
+          opacity: animation,
+          child: child,
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.green,
-      ),
+        appBar: AppBar(
+          backgroundColor: Colors.green,
+        ),
+        body: Center(
+            child: // On the first screen
+                ElevatedButton(
+          onPressed: () {
+            Navigator.of(context).push(createFadeRoute(SecondScreen()));
+          },
+          child: const Text('Go to Second Screen'),
+        )));
+  }
+}
+
+class SecondScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Second Screen')),
+      body: const Center(child: Text('This is the second screen')),
     );
   }
 }

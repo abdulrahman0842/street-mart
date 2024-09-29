@@ -1,42 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:street_mart/models/product_model.dart';
-import 'package:street_mart/services/get_all_products.dart';
-import 'package:street_mart/widgets/categories_header.dart';
 import 'package:street_mart/widgets/product_post_card.dart';
 
-class Home extends StatefulWidget {
-  const Home({
-    super.key,
-  });
-
+class CategoryProduct extends StatefulWidget {
+  const CategoryProduct({super.key, required this.category});
+  final String category;
   @override
-  State<Home> createState() => _HomeState();
+  State<CategoryProduct> createState() => _CategoryProductState();
 }
 
-class _HomeState extends State<Home> {
-  late List<Products>? products;
-  final getProductServices = GetProductsServices();
-  @override
-  void initState() {
-    super.initState();
-    fetchProduct();
-  }
-
-  Future<void> fetchProduct() async {
-    await getProductServices.getAllProducts();
-    setState(() {
-      products = getProductServices.allProducts;
-    });
-  }
-
+class _CategoryProductState extends State<CategoryProduct> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.sizeOf(context).width;
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text('Street Mart',
-            style: TextStyle(
+        title: Text(widget.category,
+            style: const TextStyle(
                 fontSize: 25, fontWeight: FontWeight.bold, letterSpacing: 2)),
       ),
       body: SingleChildScrollView(
@@ -45,11 +25,6 @@ class _HomeState extends State<Home> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const CategoriesHeader(),
-              const Divider(
-                indent: 5,
-                endIndent: 5,
-              ),
               ListView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),

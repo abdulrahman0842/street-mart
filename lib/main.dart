@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:street_mart/views/initilal_screen.dart';
+import 'package:street_mart/views/user_authentication/user_login_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,8 +13,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-            colorScheme: ColorScheme.fromSeed(
-                seedColor: const Color.fromARGB(255, 0, 140, 255))),
-        home: const InitilalScreen());
+            colorScheme:
+                ColorScheme.fromSeed(seedColor: const Color(0xFF3F8575))),
+        home: UserLoginPage());
   }
 }
