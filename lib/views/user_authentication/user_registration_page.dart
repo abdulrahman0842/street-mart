@@ -100,7 +100,7 @@
 import 'package:flutter/material.dart';
 import 'package:street_mart/models/user_account_model.dart';
 import 'package:street_mart/services/user_authentications.dart';
-import 'package:street_mart/views/initilal_screen.dart';
+import 'package:street_mart/views/user_authentication/otp_verification_screen.dart';
 import 'package:street_mart/views/user_authentication/widgets/auth_theme.dart';
 
 class UserRegistrationPage extends StatelessWidget {
@@ -111,15 +111,25 @@ class UserRegistrationPage extends StatelessWidget {
 
   UserRegistrationPage({super.key});
 
-  void _registerUser(BuildContext context) {
+  void _registerUser(BuildContext context) async {
     if (_formKey.currentState!.validate()) {
       RegisterUserModel userData = RegisterUserModel(
           name: _nameController.text,
           email: _emailController.text,
           password: _passwordController.text);
-      UserAuthenticationService().registerUser(userData);
-      Navigator.pushReplacement(context,
-          MaterialPageRoute(builder: (context) => const InitialScreen()));
+      bool isRegistered =
+          await UserAuthenticationService().registerUser(userData);
+      if (isRegistered) {
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (context) => OTPVerificationScreen(
+                      email: _emailController.text,
+                    )));
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content: Text('Failed to Register User, Try again!')));
+      }
     }
   }
 

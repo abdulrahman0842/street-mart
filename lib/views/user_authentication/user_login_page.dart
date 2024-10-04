@@ -142,13 +142,18 @@ class UserLoginPage extends StatelessWidget {
 
   UserLoginPage({super.key});
 
-  void _loginUser(BuildContext context) {
+  void _loginUser(BuildContext context) async {
     if (_formKey.currentState!.validate()) {
       LoginUserModel userData = LoginUserModel(
           email: _emailController.text, password: _passwordController.text);
-      UserAuthenticationService().loginUser(userData);
-      Navigator.pushReplacement(context,
-          MaterialPageRoute(builder: (context) => const InitialScreen()));
+      bool isLoggedIn = await UserAuthenticationService().loginUser(userData);
+      if (isLoggedIn) {
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) => const InitialScreen()));
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Failed to Log-in, Try again!')));
+      }
     }
   }
 
