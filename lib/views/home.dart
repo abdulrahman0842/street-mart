@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:street_mart/models/product_model.dart';
-import 'package:street_mart/services/get_all_products.dart';
+import 'package:street_mart/services/get_products_services.dart';
 import 'package:street_mart/widgets/categories_header.dart';
 import 'package:street_mart/widgets/product_post_card.dart';
 
@@ -14,13 +14,13 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  late List<Products>? products;
+  List<Products>? products;
   final getProductServices = GetProductsServices();
-  @override
-  void initState() {
-    super.initState();
-    fetchProduct();
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   fetchProduct();
+  // }
 
   Future<void> fetchProduct() async {
     await getProductServices.getAllProducts();
@@ -31,7 +31,6 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.sizeOf(context).width;
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -42,36 +41,40 @@ class _HomeState extends State<Home> {
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(15.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const CategoriesHeader(),
-              const Divider(
-                indent: 5,
-                endIndent: 5,
-              ),
-              ListView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: 2,
-                  itemBuilder: (context, index) {
-                    return ProductPostCard(width: width);
-                  }),
-              const Divider(
-                indent: 5,
-                endIndent: 5,
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              const Center(
-                child: Text(
-                  'You are all caught up!!!',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          child: products == null
+              ? const Center(child: CircularProgressIndicator())
+              : Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const CategoriesHeader(),
+                    const Divider(
+                      indent: 5,
+                      endIndent: 5,
+                    ),
+                    ListView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: 2,
+                        itemBuilder: (context, index) {
+                          Products product = products![index];
+                          return ProductPostCard(product: product);
+                        }),
+                    const Divider(
+                      indent: 5,
+                      endIndent: 5,
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    const Center(
+                      child: Text(
+                        'You are all caught up!!!',
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
+                      ),
+                    )
+                  ],
                 ),
-              )
-            ],
-          ),
         ),
       ),
     );

@@ -1,24 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:street_mart/models/product_model.dart';
 
 class ProductPostCard extends StatelessWidget {
   const ProductPostCard({
     super.key,
-    required this.width,
+    required this.product,
   });
 
-  final double width;
+  final Products product;
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.sizeOf(context).width;
     return Padding(
       padding: const EdgeInsets.only(top: 8.0, bottom: 8),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(children: [
-            const CircleAvatar(
+            CircleAvatar(
               radius: 22,
-              backgroundColor: Colors.grey,
+              backgroundColor: Colors.grey.shade300,
+              child: const Icon(
+                Icons.person_2_sharp,
+                size: 40,
+              ),
             ),
             const SizedBox(
               width: 5,
@@ -26,12 +32,13 @@ class ProductPostCard extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  'abdulrahman0842',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                Text(
+                  product.userId!.name ?? 'Unknown',
+                  style: const TextStyle(
+                      fontSize: 16, fontWeight: FontWeight.w600),
                 ),
                 Text(
-                  '25/09/2024',
+                  product.createdAt ?? 'xx/xx/xxxx',
                   style: TextStyle(color: Colors.grey.shade600),
                 )
               ],
@@ -44,15 +51,17 @@ class ProductPostCard extends StatelessWidget {
             height: width * 0.80,
             width: width * 0.95,
             decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: NetworkImage(product.productImgURL ?? 'ImageURL')),
                 color: Colors.grey.shade400,
                 borderRadius: BorderRadius.circular(15)),
           ),
           const SizedBox(
             height: 5,
           ),
-          const Text(
-            'Laptop',
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          Text(
+            product.productName ?? 'Unknown',
+            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             softWrap: true,
             maxLines: 4,
             overflow: TextOverflow.ellipsis,
@@ -60,9 +69,9 @@ class ProductPostCard extends StatelessWidget {
           const SizedBox(
             height: 5,
           ),
-          const Text(
-            'Noi siamo furon transitorie con segreto forza e. E e sono manifesta.',
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+          Text(
+            product.productLocation ?? 'Unknown',
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
             softWrap: true,
             maxLines: 4,
             overflow: TextOverflow.ellipsis,

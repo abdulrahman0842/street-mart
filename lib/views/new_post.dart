@@ -20,6 +20,8 @@ class _NewPostState extends State<NewPost> {
   final TextEditingController productCategoryController =
       TextEditingController();
   final TextEditingController addressController = TextEditingController();
+
+  final _formKey = GlobalKey<FormState>();
   void deleteImage() {
     File(image!.path).delete();
   }
@@ -37,7 +39,7 @@ class _NewPostState extends State<NewPost> {
               height: height * 0.35,
               width: width * 0.99,
               decoration: image == null
-                  ? const BoxDecoration(color: Colors.grey)
+                  ? BoxDecoration(color: Colors.grey.shade300)
                   : BoxDecoration(
                       image: DecorationImage(
                           fit: BoxFit.cover,
@@ -75,79 +77,80 @@ class _NewPostState extends State<NewPost> {
                                     Color.fromRGBO(81, 81, 83, 0.705))),
                           )),
                     ])),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(
-                height: 5,
-              ),
-              const Text(
-                'Product Name',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-              ),
-              const SizedBox(
-                height: 5,
-              ),
-              NewPostTextField(
-                controller: productNameController,
-                hintText: 'Product Name',
-              ),
-              const SizedBox(
-                height: 5,
-              ),
-              const Text(
-                'Category',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-              ),
-              DropdownMenu(
-                  controller: productCategoryController,
-                  hintText: 'Category',
-                  inputDecorationTheme: InputDecorationTheme(
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(15))),
-                  dropdownMenuEntries: const [
-                    DropdownMenuEntry(
-                      value: 'Stationary',
-                      label: 'Stationary',
-                    ),
-                    DropdownMenuEntry(value: 'Fashion', label: 'Fashion'),
-                    DropdownMenuEntry(
-                        value: 'Electronics', label: 'Electronics'),
-                    DropdownMenuEntry(value: 'Hardware', label: 'Hardware')
-                  ]),
-              const SizedBox(
-                height: 5,
-              ),
-              const Text(
-                'Location',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-              ),
-              const SizedBox(
-                height: 5,
-              ),
-              NewPostTextField(
-                controller: addressController,
-                hintText: 'Location',
-              ),
-            ],
+          Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(
+                  height: 5,
+                ),
+                const Text(
+                  'Product Name',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                NewPostTextField(
+                  controller: productNameController,
+                  hintText: 'Product Name',
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                const Text(
+                  'Category',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                ),
+                DropdownMenu(
+                    controller: productCategoryController,
+                    initialSelection: 'Default',
+                    
+                    menuStyle: const MenuStyle(
+                        shape: WidgetStatePropertyAll(RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(15))))),
+                    hintText: 'Category',
+                    inputDecorationTheme: InputDecorationTheme(
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15))),
+                    dropdownMenuEntries: const [
+                      DropdownMenuEntry(
+                        value: 'Default',
+                        label: 'Default',
+                      ),
+                      DropdownMenuEntry(
+                        value: 'Stationary',
+                        label: 'Stationary',
+                      ),
+                      DropdownMenuEntry(value: 'Fashion', label: 'Fashion'),
+                      DropdownMenuEntry(
+                          value: 'Electronics', label: 'Electronics'),
+                      DropdownMenuEntry(value: 'Hardware', label: 'Hardware')
+                    ]),
+                const SizedBox(
+                  height: 5,
+                ),
+                const Text(
+                  'Location',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                NewPostTextField(
+                  controller: addressController,
+                  hintText: 'Location',
+                ),
+              ],
+            ),
           ),
           const SizedBox(
             height: 10,
           ),
           ElevatedButton.icon(
-              onPressed: () {
-                NewProductModel newProduct = NewProductModel(
-                    productName: productNameController.text,
-                    productCategory: productCategoryController.text,
-                    locationCoordinates: addressController.text);
-                if (image != null) {
-                  ShareNewProductService().shareNewProduct(newProduct, image!);
-                }
-                productNameController.clear();
-                productCategoryController.clear();
-                addressController.clear();
-                image = null;
-              },
+              onPressed: postProduct,
               icon: const Icon(
                 Icons.file_upload_outlined,
                 size: 25,
@@ -159,6 +162,28 @@ class _NewPostState extends State<NewPost> {
         ]));
   }
 
+  void postProduct() {
+    if (image == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Please pick an Image First!')));
+    }
+
+    if (_formKey.currentState!.validate() && image != null) {
+      NewProductModel newProduct = NewProductModel(
+          productName: productNameController.text,
+          productCategory: productCategoryController.text,
+          locationCoordinates: addressController.text);
+      ShareNewProductService().shareNewProduct(newProduct, image!);
+
+      productNameController.clear();
+      productCategoryController.clear();
+      addressController.clear();
+      setState(() {
+        image = null;
+      });
+    }
+  }
+
   pickImageDialog(double height) {
     return showDialog(
       context: context,
@@ -166,7 +191,9 @@ class _NewPostState extends State<NewPost> {
         return AlertDialog(
             actions: [
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pop(context);
+                },
                 child: const Text('Cancel'),
               )
             ],

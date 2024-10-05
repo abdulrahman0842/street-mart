@@ -28,28 +28,36 @@ class _InitialScreenState extends State<InitialScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      bottomNavigationBar: BottomNavigationBar(
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.add_box_outlined), label: 'Post'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.account_circle), label: 'Profile'),
-        ],
-        currentIndex: selectedIndex,
-        onTap: onTapped,
-        elevation: 15,
-        showUnselectedLabels: false,
-        unselectedItemColor: Colors.grey,
-      ),
-      body: PageView(
-        controller: pageController,
-        onPageChanged: onPageChanged,
-        children: const [Home(), NewPost(), Profile()],
+    return PopScope(
+      canPop: selectedIndex != 0 ? false : true,
+      onPopInvokedWithResult: (didPop, result) {
+        if (!didPop) {
+          onTapped(0);
+        }
+      },
+      child: Scaffold(
+        bottomNavigationBar: BottomNavigationBar(
+          items: const [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: 'Home',
+            ),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.add_box_outlined), label: 'Post'),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.account_circle), label: 'Profile'),
+          ],
+          currentIndex: selectedIndex,
+          onTap: onTapped,
+          elevation: 15,
+          showUnselectedLabels: false,
+          enableFeedback: true,
+        ),
+        body: PageView(
+          controller: pageController,
+          onPageChanged: onPageChanged,
+          children: const [Home(), NewPost(), Profile()],
+        ),
       ),
     );
   }

@@ -74,49 +74,51 @@ import 'package:flutter/material.dart';
 //   }
 // }
 
-class Testi extends StatefulWidget {
-  const Testi({super.key});
+// *********** Fade Transition ***********
+// class Testi extends StatefulWidget {
+//   const Testi({super.key});
 
-  @override
-  State<Testi> createState() => _TestiState();
-}
+//   @override
+//   State<Testi> createState() => _TestiState();
+// }
 
-class _TestiState extends State<Testi> {
-  Route createFadeRoute(Widget page) {
-    return PageRouteBuilder(
-      pageBuilder: (context, animation, secondaryAnimation) => page,
-      transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        return FadeTransition(
-          opacity: animation,
-          child: child,
-        );
-      },
-    );
-  }
+// class _TestiState extends State<Testi> {
+//   Route createFadeRoute(Widget page) {
+//     return PageRouteBuilder(
+//       pageBuilder: (context, animation, secondaryAnimation) => page,
+//       transitionsBuilder: (context, animation, secondaryAnimation, child) {
+//         return FadeTransition(
+//           opacity: animation,
+//           child: child,
+//         );
+//       },
+//     );
+//   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.green,
-        ),
-        body: Center(
-            child: // On the first screen
-                ElevatedButton(
-          onPressed: () {
-            Navigator.of(context).push(createFadeRoute(SecondScreen()));
-          },
-          child: const Text('Go to Second Screen'),
-        )));
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//         appBar: AppBar(
+//           backgroundColor: Colors.green,
+//         ),
+//         body: Center(
+//             child: // On the first screen
+//                 ElevatedButton(
+//           onPressed: () {
+//             Navigator.of(context).push(createFadeRoute(SecondScreen()));
+//           },
+//           child: const Text('Go to Second Screen'),
+//         )));
+//   }
+// }
 
-class SecondScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Second Screen')),
-      body: const Center(child: Text('This is the second screen')),
-    );
-  }
-}
+// class SecondScreen extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(title: const Text('Second Screen')),
+//       body: const Center(child: Text('This is the second screen')),
+//     );
+//   }
+// }
+

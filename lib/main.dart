@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:street_mart/views/home.dart';
+import 'package:street_mart/views/initilal_screen.dart';
 import 'package:street_mart/views/user_authentication/user_login_page.dart';
 
 void main() {
@@ -15,6 +17,6 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
             colorScheme:
                 ColorScheme.fromSeed(seedColor: const Color(0xFF3F8575))),
-        home: UserLoginPage());
+        home: InitialScreen());
   }
 }

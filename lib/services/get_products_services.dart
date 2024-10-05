@@ -25,7 +25,7 @@ class GetProductsServices {
     }
   }
 
-  // Fetch all Products from the Database
+  // Fetch all Products from the server
   Future<void> getAllProducts() async {
     final products = await _fetchProducts('$baseUrl/product/get-all-product');
     if (products != null && products.isNotEmpty) {
@@ -36,7 +36,7 @@ log(allProducts!.length.toString());
     }
   }
 
-  // Fetch Products by Category from the Database
+  // Fetch Products by Category from the server
   Future<void> getProductByCategory(String category) async {
     final url = '$baseUrl/product/get-product-by-category/$category';
     final products = await _fetchProducts(url);

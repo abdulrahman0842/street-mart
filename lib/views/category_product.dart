@@ -30,7 +30,8 @@ class _CategoryProductState extends State<CategoryProduct> {
                   physics: const NeverScrollableScrollPhysics(),
                   itemCount: 2,
                   itemBuilder: (context, index) {
-                    return ProductPostCard(width: width);
+                    // return ProductPostCard(width: width);
+                    return Text('');
                   }),
               const Divider(
                 indent: 5,
