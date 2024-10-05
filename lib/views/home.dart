@@ -19,10 +19,10 @@ class _HomeState extends State<Home> {
   // @override
   // void initState() {
   //   super.initState();
-  //   fetchProduct();
+  //   fetchProducts();
   // }
 
-  Future<void> fetchProduct() async {
+  Future<void> fetchProducts() async {
     await getProductServices.getAllProducts();
     setState(() {
       products = getProductServices.allProducts;
@@ -42,7 +42,7 @@ class _HomeState extends State<Home> {
         child: Padding(
           padding: const EdgeInsets.all(15.0),
           child: products == null
-              ? const Center(child: CircularProgressIndicator())
+              ? CategoriesHeader()
               : Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [

@@ -19,18 +19,24 @@ class CategoryTypeIcon extends StatelessWidget {
                 builder: (context) => CategoryProduct(category: category)));
       },
       child: Column(children: [
-        Container(
-          height: 60,
-          width: 60,
-          decoration: BoxDecoration(
-              color: Colors.grey, borderRadius: BorderRadius.circular(20)),
-          child: Icon(
-            icon,
-            size: 40,
+        Card(
+          elevation: 8,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          child: Container(
+            height: 60,
+            width: 60,
+            decoration: BoxDecoration(
+                color: Colors.grey.shade300,
+                borderRadius: BorderRadius.circular(20)),
+            child: Icon(
+              icon,
+              size: 40,
+            ),
           ),
         ),
         const SizedBox(
-          height: 5,
+          height: 6,
         ),
         Text(
           category,
