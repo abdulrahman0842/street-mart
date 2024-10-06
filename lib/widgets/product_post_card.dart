@@ -7,7 +7,7 @@ class ProductPostCard extends StatelessWidget {
     required this.product,
   });
 
-  final Products product;
+  final Products? product;
 
   @override
   Widget build(BuildContext context) {
@@ -33,12 +33,12 @@ class ProductPostCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  product.userId!.name ?? 'Unknown',
+                  product!.userId!.name ?? 'Unknown',
                   style: const TextStyle(
                       fontSize: 16, fontWeight: FontWeight.w600),
                 ),
                 Text(
-                  product.createdAt ?? 'xx/xx/xxxx',
+                  product!.createdAt ?? 'xx/xx/xxxx',
                   style: TextStyle(color: Colors.grey.shade600),
                 )
               ],
@@ -52,7 +52,7 @@ class ProductPostCard extends StatelessWidget {
             width: width * 0.95,
             decoration: BoxDecoration(
                 image: DecorationImage(
-                    image: NetworkImage(product.productImgURL ?? 'ImageURL')),
+                    image: NetworkImage(product!.productImgURL ?? 'ImageURL')),
                 color: Colors.grey.shade400,
                 borderRadius: BorderRadius.circular(15)),
           ),
@@ -60,7 +60,7 @@ class ProductPostCard extends StatelessWidget {
             height: 5,
           ),
           Text(
-            product.productName ?? 'Unknown',
+            product!.productName ?? 'Unknown',
             style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             softWrap: true,
             maxLines: 4,
@@ -70,7 +70,7 @@ class ProductPostCard extends StatelessWidget {
             height: 5,
           ),
           Text(
-            product.productLocation ?? 'Unknown',
+            product!.productLocation ?? 'Unknown',
             style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
             softWrap: true,
             maxLines: 4,

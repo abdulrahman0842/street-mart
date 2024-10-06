@@ -14,20 +14,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  List<Products>? products;
   final getProductServices = GetProductsServices();
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   fetchProducts();
-  // }
-
-  Future<void> fetchProducts() async {
-    await getProductServices.getAllProducts();
-    setState(() {
-      products = getProductServices.allProducts;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,40 +28,52 @@ class _HomeState extends State<Home> {
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(15.0),
-          child: products == null
-              ? CategoriesHeader()
-              : Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const CategoriesHeader(),
-                    const Divider(
-                      indent: 5,
-                      endIndent: 5,
-                    ),
-                    ListView.builder(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const CategoriesHeader(),
+              const Divider(
+                indent: 5,
+                endIndent: 5,
+              ),
+              FutureBuilder(
+                  future: getProductServices.getAllProducts(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                    if (snapshot.hasError) {
+                      return Text('Exception: ${snapshot.error}');
+                    }
+                    if (snapshot.data == null) {
+                      return const Text('No product available');
+                    }
+                    return ListView.builder(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
                         itemCount: 2,
                         itemBuilder: (context, index) {
-                          Products product = products![index];
+                          Products product = snapshot.data![index];
                           return ProductPostCard(product: product);
-                        }),
-                    const Divider(
-                      indent: 5,
-                      endIndent: 5,
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    const Center(
-                      child: Text(
-                        'You are all caught up!!!',
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
-                      ),
-                    )
-                  ],
+                        });
+                  }),
+              const Divider(
+                indent: 5,
+                endIndent: 5,
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              const Center(
+                child: Text(
+                  'You are all caught up!!!',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
+              )
+            ],
+          ),
         ),
       ),
     );

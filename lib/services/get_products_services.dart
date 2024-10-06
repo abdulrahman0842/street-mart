@@ -6,7 +6,7 @@ import 'package:street_mart/services/config.dart';
 
 class GetProductsServices {
   final String baseUrl = Config().baseUrl;
-  List<Products>? allProducts;
+
   List<Products>? productsByCategory;
 
   Future<List<Products>?> _fetchProducts(String url) async {
@@ -26,22 +26,24 @@ class GetProductsServices {
   }
 
   // Fetch all Products from the server
-  Future<void> getAllProducts() async {
+  Future<List<Products>?> getAllProducts() async {
     final products = await _fetchProducts('$baseUrl/product/get-all-product');
     if (products != null && products.isNotEmpty) {
-      allProducts = products;
-log(allProducts!.length.toString());
+      log(products.length.toString());
+      return products;
     } else {
       log('No Product found');
+      return null;
     }
   }
 
   // Fetch Products by Category from the server
-  Future<void> getProductByCategory(String category) async {
+  Future<List<Products>?> getProductByCategory(String category) async {
     final url = '$baseUrl/product/get-product-by-category/$category';
     final products = await _fetchProducts(url);
     if (products != null && products.isNotEmpty) {
       productsByCategory = products;
+      return products;
     } else {
       log('No product found for Category $category');
     }
