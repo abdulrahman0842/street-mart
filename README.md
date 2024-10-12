@@ -30,7 +30,7 @@ The backend of this application, including user authentication, authorization, a
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/YourGitHubUsername/street_mart.git
+   git clone https://github.com/abdulrahman0842/street_mart.git
 2. Navigate to the project directory:
    ```bash
    cd street_mart
