@@ -16,7 +16,7 @@ Street Mart is a Flutter-based product listing app designed to promote local ven
 
 ## Backend
 
-The backend of this application, including user authentication, authorization, and product sharing APIs, has been developed by [MdHassan07](https://github.com/MohammedHassan07/). You can check out the backend repository [here]([https://github.com/MdHassan07/backend-repository-link](https://github.com/MohammedHassan07/local-vendors)).
+The backend of this application, including user authentication, authorization, and product sharing APIs, has been developed by [MdHassan07](https://github.com/MohammedHassan07/). You can check out the backend repository [here](https://github.com/MohammedHassan07/local-vendors).
 
 ## Getting Started
 
@@ -32,9 +32,12 @@ The backend of this application, including user authentication, authorization, a
    ```bash
    git clone https://github.com/YourGitHubUsername/street_mart.git
 2. Navigate to the project directory:
+   ```bash
    cd street_mart
 3. Get dependencies:
+   ```bash
    flutter pub get
-4. Configure the API server URL in your app’s environment.
-5. Run the app:
+5. Configure the API server URL in your app’s environment.
+6. Run the app:
+   ```bash
    flutter run
