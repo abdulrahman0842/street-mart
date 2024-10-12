@@ -1,6 +1,3 @@
-import 'package:street_mart/models/location_model.dart';
-import 'package:image_picker/image_picker.dart';
-
 class NewProductModel {
   final String productName;
   final String productCategory;

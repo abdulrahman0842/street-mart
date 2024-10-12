@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:street_mart/services/user_credentials_services.dart';
 import 'package:street_mart/widgets/product_grid_view.dart';
 
 class Profile extends StatefulWidget {
@@ -9,6 +10,15 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
+  String? name;
+  String? email;
+  @override
+  void initState() {
+    super.initState();
+    name = UserCredentialsServices.getCred('userName');
+    email = UserCredentialsServices.getCred('email');
+  }
+
   bool isPosted = false;
   @override
   Widget build(BuildContext context) {
@@ -27,11 +37,11 @@ class _ProfileState extends State<Profile> {
           const SizedBox(
             height: 10,
           ),
-          const Text(
-            'Abdul Rahman',
+          Text(
+            name ?? 'Unknown',
             style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500),
           ),
-          const Text('abdulrahman0842',
+          Text(email ?? 'Unknown',
               style: TextStyle(
                 fontSize: 16,
               )),

@@ -1,4 +1,6 @@
-class GetShopLocationService{
+// This is Currently not in use
+
+// class GetShopLocationService{
 //   Future<void> _getLocation() async {
 //     bool serviceEnabled;
 //     LocationPermission permission;
@@ -38,4 +40,4 @@ class GetShopLocationService{
 //     });
 //   }
 
-}
+// }

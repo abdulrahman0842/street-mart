@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:street_mart/models/otp_model.dart';
 import 'package:street_mart/services/user_authentications.dart';
+import 'package:street_mart/services/user_credentials_services.dart';
 import 'package:street_mart/views/initilal_screen.dart';
 
 class OTPVerificationScreen extends StatefulWidget {
@@ -29,11 +30,12 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
         isLoading = false;
       });
       if (isVerified) {
+        UserCredentialsServices.login();
         Navigator.pushReplacement(context,
             MaterialPageRoute(builder: (context) => const InitialScreen()));
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content:  Text('Invalid OTP, please try again!')));
+            const SnackBar(content: Text('Invalid OTP, please try again!')));
       }
 
       // Navigator required

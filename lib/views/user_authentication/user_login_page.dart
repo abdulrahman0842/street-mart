@@ -131,6 +131,7 @@
 import 'package:flutter/material.dart';
 import 'package:street_mart/models/user_account_model.dart';
 import 'package:street_mart/services/user_authentications.dart';
+import 'package:street_mart/services/user_credentials_services.dart';
 import 'package:street_mart/views/initilal_screen.dart';
 import 'package:street_mart/views/user_authentication/widgets/auth_theme.dart';
 import 'user_registration_page.dart'; // Import your registration page here
@@ -148,6 +149,9 @@ class UserLoginPage extends StatelessWidget {
           email: _emailController.text, password: _passwordController.text);
       bool isLoggedIn = await UserAuthenticationService().loginUser(userData);
       if (isLoggedIn) {
+        UserCredentialsServices.saveCred(_emailController.text,
+            _emailController.text, _passwordController.text);
+        UserCredentialsServices.login();
         Navigator.pushReplacement(context,
             MaterialPageRoute(builder: (context) => const InitialScreen()));
       } else {

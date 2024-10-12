@@ -100,6 +100,7 @@
 import 'package:flutter/material.dart';
 import 'package:street_mart/models/user_account_model.dart';
 import 'package:street_mart/services/user_authentications.dart';
+import 'package:street_mart/services/user_credentials_services.dart';
 import 'package:street_mart/views/user_authentication/otp_verification_screen.dart';
 import 'package:street_mart/views/user_authentication/widgets/auth_theme.dart';
 
@@ -120,6 +121,9 @@ class UserRegistrationPage extends StatelessWidget {
       bool isRegistered =
           await UserAuthenticationService().registerUser(userData);
       if (isRegistered) {
+        UserCredentialsServices.saveCred(_nameController.text,
+            _emailController.text, _passwordController.text);
+
         Navigator.pushReplacement(
             context,
             MaterialPageRoute(

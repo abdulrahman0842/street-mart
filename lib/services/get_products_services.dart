@@ -46,6 +46,7 @@ class GetProductsServices {
       return products;
     } else {
       log('No product found for Category $category');
+      return null;
     }
   }
 }
