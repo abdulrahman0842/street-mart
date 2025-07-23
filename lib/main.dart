@@ -22,6 +22,6 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
             colorScheme:
                 ColorScheme.fromSeed(seedColor: const Color(0xFF3F8575))),
-        home: isLoggedIn ? const InitialScreen() : UserLoginPage());
+        home: InitialScreen());
   }
 }

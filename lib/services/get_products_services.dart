@@ -9,21 +9,21 @@ class GetProductsServices {
 
   List<Products>? productsByCategory;
 
-  Future<List<Products>?> _fetchProducts(String url) async {
-    try {
-      final response = await http.get(Uri.parse(url));
-      if (response.statusCode == 200) {
-        final json = jsonDecode(response.body);
-        return ProductModel.fromJson(json).products;
-      } else {
-        log('Failed to Load Data: ${response.statusCode} : ${response.reasonPhrase}');
+    Future<List<Products>?> _fetchProducts(String url) async {
+      try {
+        final response = await http.get(Uri.parse(url));
+        if (response.statusCode == 200) {
+          final json = jsonDecode(response.body);
+          return ProductModel.fromJson(json).products;
+        } else {
+          log('Failed to Load Data: ${response.statusCode} : ${response.reasonPhrase}');
+          return null;
+        }
+      } catch (e) {
+        log("Error: Unable to Load Product $e");
         return null;
       }
-    } catch (e) {
-      log("Error: Unable to Load Product $e");
-      return null;
     }
-  }
 
   // Fetch all Products from the server
   Future<List<Products>?> getAllProducts() async {
